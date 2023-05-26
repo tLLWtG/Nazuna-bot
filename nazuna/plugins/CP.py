@@ -75,9 +75,14 @@ async def get_user(user_name: str) -> str:
     
     user_info = '盒打击成功，查询到以下信息：\n\n'
     user_info += f'name: {user_name}\n'
-    user_info += f'rating: {res_dict["result"][0]["rating"]}\n'
-    user_info += f'maxRating: {res_dict["result"][0]["maxRating"]}\n'
-    user_info += f'rank: {res_dict["result"][0]["rank"]}\n'
+    try:
+        user_info += f'rating: {res_dict["result"][0]["rating"]}\n'
+        user_info += f'maxRating: {res_dict["result"][0]["maxRating"]}\n'
+        user_info += f'rank: {res_dict["result"][0]["rank"]}\n'
+    except:
+        user_info += f'rating: unrated\n'
+        user_info += f'maxRating: unrated\n'
+        user_info += f'rank: unrated\n'
     user_info += f'friends: {res_dict["result"][0]["friendOfCount"]}\n'
     user_info += f'contribution: {res_dict["result"][0]["contribution"]}\n'
     
@@ -101,11 +106,14 @@ async def get_user(user_name: str) -> str:
     except:
         return '盒打击失败：无法解析接收到的用户信息'
     
-    online_time = int(res_dict["result"][0]["creationTimeSeconds"])
-    time_array = time.localtime(online_time)
-    other_style_time_ls = time.strftime('%Y/%m/%d %H:%M:%S', time_array)
+    if not res_dict["result"]:
+        user_info += f'lastSubmission: never submit\n'
+    else:
+        online_time = int(res_dict["result"][0]["creationTimeSeconds"])
+        time_array = time.localtime(online_time)
+        other_style_time_ls = time.strftime('%Y/%m/%d %H:%M:%S', time_array)
+        user_info += f'lastSubmission: {other_style_time_ls}\n'
     
-    user_info += f'lastSubmission: {other_style_time_ls}\n'
     user_info += f'lastOnline: {other_style_time_lo}\n'
 
     return user_info
