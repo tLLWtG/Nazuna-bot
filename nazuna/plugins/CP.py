@@ -74,7 +74,7 @@ async def get_user(user_name: str) -> str:
         return '盒打击失败：无法解析接收到的用户信息'
     
     user_info = '盒打击成功，查询到以下信息：\n\n'
-    user_info += f'name: {user_name}\n'
+    user_info += f'name: {res_dict["result"][0]["handle"]}\n'
     try:
         user_info += f'rating: {res_dict["result"][0]["rating"]}\n'
         user_info += f'maxRating: {res_dict["result"][0]["maxRating"]}\n'
@@ -84,7 +84,7 @@ async def get_user(user_name: str) -> str:
         user_info += f'maxRating: unrated\n'
         user_info += f'rank: unrated\n'
     user_info += f'friends: {res_dict["result"][0]["friendOfCount"]}\n'
-    user_info += f'contribution: {res_dict["result"][0]["contribution"]}\n'
+    user_info += f'contribution: {res_dict["result"][0]["contribution"]}\n\n'
     
     online_time = int(res_dict["result"][0]["lastOnlineTimeSeconds"])
     time_array = time.localtime(online_time)
