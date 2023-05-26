@@ -114,6 +114,6 @@ async def get_user(user_name: str) -> str:
         other_style_time_ls = time.strftime('%Y/%m/%d %H:%M:%S', time_array)
         user_info += f'lastSubmission: {other_style_time_ls}\n'
     
-    user_info += f'lastOnline: {other_style_time_lo}\n'
+    user_info += f'lastOnline: {other_style_time_lo}'
 
     return user_info
