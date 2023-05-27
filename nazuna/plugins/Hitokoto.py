@@ -11,7 +11,7 @@ async def hitokoto(session: CommandSession):
         await session.send(f'from: {res[1]}')
     
     
-async def get_hitokoto() -> list[str]:
+async def get_hitokoto() -> list(str):
     try:
         res_text = requests.get('https://v1.hitokoto.cn/?c=a&c=b&c=d&c=i&c=k').text
     except:
